@@ -1,4 +1,5 @@
 var postsData = require('../../../data/posts-data.js')
+var app=getApp();
 Page({
 
   /**
@@ -12,6 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     var postId = options.id;
     this.data.currentPostId = postId;
     var postData = postsData.postList[postId];
@@ -29,8 +31,32 @@ Page({
       postscollected[postId] = false;
       wx.setStorageSync('posts_collected', postscollected)
     }
+    if(app.globalData.g_isPlayingMusic){
+      this.setData({
+        isPlayingMusic: true
+      })
+    }
+    // 监听音乐状态
+    this.onBackgroundAudioPlay()
 
   },
+  // 封装监听音乐状态
+  onBackgroundAudioPlay:function(){
+    var that = this;
+    wx.onBackgroundAudioPlay(function () 
+    {
+      that.setData({
+        isPlayingMusic: true
+     })
+    });
+    wx.onBackgroundAudioPause(function () 
+    {
+      that.setData({
+        isPlayingMusic: false
+     })
+    });
+  },
+  //点击跟换缓存状态
   oncollectionTap: function (event) {
     // this.getCollectedSync()
     this.getCollectedAsy()
@@ -82,7 +108,8 @@ Page({
       cancelText: '取消',
       confirmText: '确认',
       confirmColor: '#405f80',
-      success: function (res) {
+      success: function (res) 
+      {
         if (res.confirm) {
           wx.setStorageSync('posts_collected', postscollected)
           taht.setData({
@@ -121,8 +148,7 @@ Page({
       this.setData({
         isPlayingMusic: false
       })
-
-
+      app.globalData.g_isPlayingMusic=false
     } else {
       wx.playBackgroundAudio({
         dataUrl: postData.url,
@@ -132,7 +158,10 @@ Page({
       this.setData({
         isPlayingMusic: true
       })
+      app.globalData.g_isPlayingMusic=true
     }
+    //监听音乐暂停
+
     // wx.pauseBackgroundAudio({
     //   success: (res) => {
 
