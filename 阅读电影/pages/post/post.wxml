@@ -13,7 +13,9 @@
 	</swiper>
 
 	<!-- 新闻列表 -->
-	<block wx:for="{{postsData}}" wx:for-item="item">
-	<template is="postItem" data="{{...item}}"></template>
+	<block wx:for="{{postsData}}" wx:for-item="item" wx:for-index="idx">
+		<view catchtap="onPostTap" data-postId="{{item.postId}}">
+			<template is="postItem" data="{{...item}}" ></template>
+		</view>
 	</block>
 </view>

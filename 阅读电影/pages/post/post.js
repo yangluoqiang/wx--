@@ -17,6 +17,14 @@ Page({
     
     this.setData({postsData:postsData.postList})
   },
+  onPostTap:function(event){
+// console.log('onPostTap')
+var postId=event.currentTarget.dataset.postid;
+wx.navigateTo({
+  url: 'post-detail/post-detail?id='+postId,
+})
+
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
