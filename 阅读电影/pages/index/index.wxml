@@ -2,7 +2,7 @@
 <view class="container">
 <image class="user-avatar" src="../../images/avatar/1.png"></image>
 <text class="user-name">hello,守默</text>
-<view class="moto-container">
+<view class="moto-container" catchtap="onTap">
 <text class="moto">欢迎使用小程序</text>
 </view>
 </view>

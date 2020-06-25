@@ -1,31 +1,34 @@
-<view>
+<view class="container">
 	<swiper indicator-dots="true" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color="#000000" autoplay="true" interval="1000">
 		<swiper-item>
 			<image src="/images/wx.png"></image>
 		</swiper-item>
 		<swiper-item>
-			<image src="/images/wx.png"></image>
+			<image src="/images/vr.png"></image>
 		</swiper-item>
 		<swiper-item>
-			<image src="/images/wx.png"></image>
+			<image src="/images/iqiyi.png"></image>
 		</swiper-item>
 	</swiper>
 
 	<!-- 新闻列表 -->
-	<view>
-		<view>
-			<image src="../../images/avatar/1.png"></image>
-			<text>Nov 25 2020</text>
+	<block wx:for="{{postsData}}" wx:for-item="item">
+		<view class="post-container">
+			<view class="post-author-data">
+				<image class="post-author" src="{{item.avatar}}"></image>
+				<text class="post-data">{{item.date}}</text>
+			</view>
+			<text class="post-title">{{item.title}}</text>
+			<image class="post-image" src="{{item.imgSrc}}"></image>
+			<text class="post-content">
+			{{item.content}}
+			</text>
+			<view class="post-like">
+				<image class="post-like-image" src="/images/icon/chat.png"></image>
+				<text class="post-like-font">{{item.collection}}</text>
+				<image class="post-like-image" src="/images/icon/view.png"></image>
+				<text class="post-like-font">{{item.reading}}</text>
+			</view>
 		</view>
-		<text>正是虾肥蟹状时</text>
-		<image src="../../images/post/crab.png"></image>
-		<text></text>
-		<view>
-			<image></image>
-			<text></text>
-			<image></image>
-			<text></text>
-		</view>
-	</view>
-
+	</block>
 </view>
