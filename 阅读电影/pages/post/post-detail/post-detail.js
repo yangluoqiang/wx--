@@ -32,22 +32,39 @@ Page({
 
   },
   oncollectionTap: function (event) {
-    var postscollected = wx.getStorageSync('posts_collected');
-    var postcollected = postscollected[this.data.currentPostId];
-
-    postcollected = !postcollected;
-    postscollected[this.data.currentPostId] = postcollected;
-    this.showModal(postcollected, postscollected)
-
+    // this.getCollectedSync()
+   this.getCollectedAsy()
 
   },
+  //异步
+  getCollectedAsy: function () {
+    var that=this;
+    wx.getStorage({
+      key: 'posts_collected',
+      success: function (res) {
+        var postscollected = res.data;
+        var postcollected = postscollected[that.data.currentPostId];
+        postcollected = !postcollected;
+        postscollected[that.data.currentPostId] = postcollected;
+        that.showModal(postcollected, postscollected)
+      }
+    })
+  },
+  getCollectedSync: function () {
+    var that=this;
+    var postscollected = wx.getStorageSync('posts_collected');
+    var postcollected = postscollected[that.data.currentPostId];
 
+    postcollected = !postcollected;
+    postscollected[that.data.currentPostId] = postcollected;
+    that.showModal(postcollected, postscollected)
+  },
   showToast: function () {
-
     wx.setStorageSync('posts_collected', postscollected)
-    this.setData({
+    that.setData({
       collected: postcollected
     })
+    
     wx.showToast({
       title: postcollected ? '收藏成功' : '取消收藏',
       duration: 1000,
@@ -88,11 +105,11 @@ Page({
       success: function (res) {
         wx.showModal({
           title: '用户' + itemList[res.tapIndex],
-          content: '现在无法实现'+res.cancel+'用户是否取消'
+          content: '现在无法实现' + res.cancel + '用户是否取消'
         })
-      
+
       }
-    }) 
+    })
   },
 
   /**
