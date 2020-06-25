@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // collected:true
+    isPlayingMusic: false
   },
 
   /**
@@ -33,12 +33,12 @@ Page({
   },
   oncollectionTap: function (event) {
     // this.getCollectedSync()
-   this.getCollectedAsy()
+    this.getCollectedAsy()
 
   },
   //异步
   getCollectedAsy: function () {
-    var that=this;
+    var that = this;
     wx.getStorage({
       key: 'posts_collected',
       success: function (res) {
@@ -51,7 +51,7 @@ Page({
     })
   },
   getCollectedSync: function () {
-    var that=this;
+    var that = this;
     var postscollected = wx.getStorageSync('posts_collected');
     var postcollected = postscollected[that.data.currentPostId];
 
@@ -64,7 +64,7 @@ Page({
     that.setData({
       collected: postcollected
     })
-    
+
     wx.showToast({
       title: postcollected ? '收藏成功' : '取消收藏',
       duration: 1000,
@@ -110,6 +110,34 @@ Page({
 
       }
     })
+  },
+  // 音乐播放
+  onMusicTap: function (evwnt) {
+    var currentPostId = [this.data.currentPostId];
+    var postData = postsData.postList[currentPostId].music;
+    var isPlayingMusic = this.data.isPlayingMusic;
+    if (isPlayingMusic) {
+      wx.pauseBackgroundAudio();
+      this.setData({
+        isPlayingMusic: false
+      })
+
+
+    } else {
+      wx.playBackgroundAudio({
+        dataUrl: postData.url,
+        title: postData.title,
+        coverImgUrl: postData.coverImg
+      })
+      this.setData({
+        isPlayingMusic: true
+      })
+    }
+    // wx.pauseBackgroundAudio({
+    //   success: (res) => {
+
+    //   },
+    // })
   },
 
   /**
