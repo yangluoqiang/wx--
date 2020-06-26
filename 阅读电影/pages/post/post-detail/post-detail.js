@@ -1,5 +1,5 @@
 var postsData = require('../../../data/posts-data.js')
-var app=getApp();
+var app = getApp();
 Page({
 
   /**
@@ -31,7 +31,7 @@ Page({
       postscollected[postId] = false;
       wx.setStorageSync('posts_collected', postscollected)
     }
-    if(app.globalData.g_isPlayingMusic){
+    if (app.globalData.g_isPlayingMusic && app.globalData.g_isPlayingMImg===postId) {
       this.setData({
         isPlayingMusic: true
       })
@@ -41,19 +41,17 @@ Page({
 
   },
   // 封装监听音乐状态
-  onBackgroundAudioPlay:function(){
+  onBackgroundAudioPlay: function () {
     var that = this;
-    wx.onBackgroundAudioPlay(function () 
-    {
+    wx.onBackgroundAudioPlay(function () {
       that.setData({
         isPlayingMusic: true
-     })
+      })
     });
-    wx.onBackgroundAudioPause(function () 
-    {
+    wx.onBackgroundAudioPause(function () {
       that.setData({
         isPlayingMusic: false
-     })
+      })
     });
   },
   //点击跟换缓存状态
@@ -108,8 +106,7 @@ Page({
       cancelText: '取消',
       confirmText: '确认',
       confirmColor: '#405f80',
-      success: function (res) 
-      {
+      success: function (res) {
         if (res.confirm) {
           wx.setStorageSync('posts_collected', postscollected)
           taht.setData({
@@ -140,6 +137,7 @@ Page({
   },
   // 音乐播放
   onMusicTap: function (evwnt) {
+
     var currentPostId = [this.data.currentPostId];
     var postData = postsData.postList[currentPostId].music;
     var isPlayingMusic = this.data.isPlayingMusic;
@@ -148,7 +146,9 @@ Page({
       this.setData({
         isPlayingMusic: false
       })
-      app.globalData.g_isPlayingMusic=false
+      app.globalData.g_isPlayingMusic = false;
+      app.globalData.g_isPlayingMImg=null;
+
     } else {
       wx.playBackgroundAudio({
         dataUrl: postData.url,
@@ -158,15 +158,10 @@ Page({
       this.setData({
         isPlayingMusic: true
       })
-      app.globalData.g_isPlayingMusic=true
+      app.globalData.g_isPlayingMusic = true;
+      app.globalData.g_isPlayingMImg = this.data.currentPostId
     }
-    //监听音乐暂停
 
-    // wx.pauseBackgroundAudio({
-    //   success: (res) => {
-
-    //   },
-    // })
   },
 
   /**

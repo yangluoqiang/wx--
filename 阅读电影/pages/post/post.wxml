@@ -1,14 +1,14 @@
 <import src="post-item/post-item-template.wxml" />
 <view class="container">
-	<swiper indicator-dots="true" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color="#000000" autoplay="true" interval="1000">
+	<swiper catchtap="onPostTap1" indicator-dots="true" indicator-color="rgba(0, 0, 0, .3)" indicator-active-color="#000000" autoplay="true" interval="1000">
 		<swiper-item>
-			<image src="/images/wx.png"></image>
+			<image src="/images/wx.png" data-postId="3"></image>
 		</swiper-item>
 		<swiper-item>
-			<image src="/images/vr.png"></image>
+			<image src="/images/vr.png"  data-postId="4"></image>
 		</swiper-item>
 		<swiper-item>
-			<image src="/images/iqiyi.png"></image>
+			<image src="/images/iqiyi.png"  data-postId="5"></image>
 		</swiper-item>
 	</swiper>
 
