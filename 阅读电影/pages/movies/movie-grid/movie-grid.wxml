@@ -1,0 +1,10 @@
+<import src="../movie/movie-template.wxml" />
+<template name="movieGridTemplate">
+<view class="gab-contienr">
+	<block wx:for="{{movies}}" wx:for-item="movie" wx:key="key">
+		<view class="gab">
+			<template is="movieTemplate" data="{{...movie}}" />
+		</view>
+	</block>
+  </view>
+</template>

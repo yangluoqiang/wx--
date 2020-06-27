@@ -1,0 +1,9 @@
+@import "../movie-grid/movie-grid.wxss";
+.gab{
+  float: left;
+  margin-bottom: 40rpx;
+}
+
+.gab-contienr{
+  margin: 40rpx 0 40rpx 6rpx;
+}
