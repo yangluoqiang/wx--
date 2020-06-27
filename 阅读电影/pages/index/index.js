@@ -11,8 +11,11 @@ Page({
   },
   //事件处理函数
   onTap: function() {
-    wx.redirectTo({
-      url: '../post/post'
+    // wx.redirectTo({
+    //   url: '../post/post'
+    // })
+    wx.navigateTo({
+      url: '../post/post',
     })
   },
   onLoad: function () {

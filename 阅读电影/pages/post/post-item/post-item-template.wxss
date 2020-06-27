@@ -1,7 +1,7 @@
 .post-container {
   display: flex;
   flex-direction: column;
-  margin-top: 20rpx;
+  margin-top: 0rpx;
   margin-bottom: 40rpx;
   background-color: #fff;
   border-top: 1px solid #ededed;
@@ -69,4 +69,8 @@ vertical-align: middle;
 
 .post-like-font{
 vertical-align: middle;
+}
+
+page{
+  background-color: #f2f2f2;
 }
